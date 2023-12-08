@@ -1,11 +1,10 @@
 ﻿#include <iostream>
 #include <fstream>
 
-#include <list>
+#include <forward_list>
 #include <queue>
 #include <vector>
-
-#define MAXV 1000
+#include <stack>
 
 using namespace std;
 
@@ -14,20 +13,17 @@ int verts, edges;
 
 void Read_g()
 {
-	adjacencyM.resize(MAXV, vector<bool>(MAXV));
-
-	ifstream ifs("data.txt");
+	ifstream ifs("data1.txt");
 	if (ifs.is_open())
 	{
 		ifs >> verts;
 		ifs >> edges;
+		adjacencyM.resize(verts, vector<bool>(verts));
 		while (!ifs.eof())
 		{
-			int v, u;
-			ifs >> v;
-			ifs >> u;
-			adjacencyM[u][v] = true;
-			adjacencyM[v][u] = true;
+			int data;
+			ifs >> data;
+			adjacencyM[]
 		}
 		cout << "Данные успешно считаны";
 	}
