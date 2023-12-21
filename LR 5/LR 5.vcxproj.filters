@@ -33,6 +33,12 @@
     <ClCompile Include="Task6.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="GraphInteraction.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Task7.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data2.txt">
@@ -56,5 +62,16 @@
     <Text Include="data1.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
+    <Text Include="data7_1.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="data7_2.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GraphInteraction.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

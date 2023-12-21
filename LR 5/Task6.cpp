@@ -1,6 +1,5 @@
 //#include <iostream>
 //#include <fstream>
-//#include <queue>
 //
 //using namespace std;
 //
@@ -94,37 +93,50 @@
 //    printTree(node->right, indent - 5);
 //}
 //
-//void del
-//
-//
-//void deleteNodesOnLevel(TreeNode* root, int level)
+//void deleteNode(TreeNode*& t1, TreeNode* t, TreeNode*& temp)
 //{
-//    if (level == 0)
+//    if (t1->right != NULL) 
+//        deleteNode(t1->right, t, temp);
+//    else 
 //    {
-//        if (root == nullptr) return;
-//        if (root->right == nullptr && root->left == nullptr) delete root;
-//        if (root->left == nullptr || root->right == nullptr)
-//        {
-//            if (root->left)
-//            {
-//                root = root->left;
-//            }
-//            else
-//            {
-//                root = root->right;
-//            }
-//        }
-//        if (root->left && root->right)
-//        {
-//
-//        }
+//        temp = t1;
+//        t->data = t1->data;
+//        t1 = t1->left;
 //    }
-//    
-//    deleteNodesOnLevel
-//    
 //}
 //
+//void deleteTree(TreeNode*& t, int a)
+//{
+//    TreeNode* temp = NULL;
+//    if (t != NULL)
+//    {
+//        if (a > t->data) deleteTree(t->right, a);
+//        else if (a < t->data) deleteTree(t->left, a);
+//        else 
+//        {
+//            temp = t;
+//            if (t->right == NULL) t = t->left;
+//            else if (t->left == NULL)  t = t->right;
+//            else deleteNode(t->left, t, temp);
+//            delete temp;
+//        }
+//    }
+//}
 //
+//void deleteNodesOnLevel(TreeNode*& root, int level)
+//{
+//    if (root == nullptr)
+//        return;
+//
+//    if (level == 1)
+//    {
+//        deleteTree(root, root->data);
+//        return;
+//    }
+//
+//    deleteNodesOnLevel(root->left, level - 1);
+//    deleteNodesOnLevel(root->right, level - 1);
+//}
 //
 //
 //int main()
@@ -140,10 +152,10 @@
 //    cout << endl << "Введите уровень дерева" << endl;
 //    cin >> depthToDel;
 //
-//    if (depthToDel > depth)
+//    while (depthToDel > depth || depthToDel < 1)
 //    {
 //        cerr << "Невозможно удалить несуществующие вершины" << endl;
-//        system("pause");
+//        cin >> depthToDel;
 //    }
 //
 //    deleteNodesOnLevel(root, depthToDel);

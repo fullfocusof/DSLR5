@@ -127,12 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GraphInteraction.cpp" />
     <ClCompile Include="Task1.cpp" />
     <ClCompile Include="Task2.cpp" />
     <ClCompile Include="Task3.cpp" />
     <ClCompile Include="Task4.cpp" />
     <ClCompile Include="Task5.cpp" />
     <ClCompile Include="Task6.cpp" />
+    <ClCompile Include="Task7.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data1.txt" />
@@ -142,6 +144,11 @@
     <Text Include="data4.txt" />
     <Text Include="data5.txt" />
     <Text Include="data6.txt" />
+    <Text Include="data7_1.txt" />
+    <Text Include="data7_2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GraphInteraction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,158 +1,291 @@
-﻿//#include <iostream>
-//#include <fstream>
+﻿//#include "GraphInteraction.h"
 //
-//#include <forward_list>
-//#include <queue>
-//#include <vector>
-//#include <stack>
+//#define KEY_UP 72
+//#define KEY_DOWN 80
+//#define KEY_ENTER 13
+//#define KEY_ESC 27
+//#define KEY_BACKSPACE 8
 //
-//using namespace std;
+//HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 //
-//vector<vector<int>> adjacencyM;
-//int verts, edges;
-//
-//void Read_g()
+//void GoToXY(short x, short y)
 //{
-//	ifstream ifs("data1.txt");
-//	if (ifs.is_open())
-//	{
-//		ifs >> verts;
-//		ifs >> edges;
-//		adjacencyM.resize(verts + 1, vector<int>(verts + 1));
-//		for (int i = 1; i < adjacencyM.size(); i++)
-//		{
-//			for (int j = 1; j < adjacencyM[i].size(); j++)
-//			{
-//				ifs >> adjacencyM[i][j];
-//			}
-//		}
-//		cout << "Данные успешно считаны" << endl;
-//	}
-//	else
-//	{
-//		cerr << "Ошибка открытия файла" << endl;
-//	}
-//	ifs.close();
+//	SetConsoleCursorPosition(hStdOut, { x, y });
 //}
 //
-//void Print_g()
+//void ConsoleCursorVisible(bool show, short size)
 //{
-//	for (int i = 1; i <= verts; i++)
-//	{
-//		cout << i << " вершина: ";
-//		vector<int> temp;
-//		for (int j = 1; j <= verts; j++)
-//		{
-//			if (adjacencyM[i][j] == 1)
-//			{
-//				temp.push_back(j);
-//				cout << j << " ";
-//			}
-//		}
-//		if (temp.empty())
-//		{
-//			cout << "<нет смежных вершин>";
-//		}
-//		cout << endl;
-//	}
-//}
-//
-//bool isConversionValid(const vector<vector<int>>& adjacencyMatrix, const vector<forward_list<int>>& adjacencyList)
-//{
-//	int n = adjacencyMatrix.size();
-//
-//	if (adjacencyList.size() != n) 
-//	{
-//		return false;
-//	}
-//
-//	for (int i = 1; i <= verts; i++)
-//	{
-//		int cnt = 0;
-//		for (auto el : adjacencyMatrix[i])
-//		{
-//			if (el == 1)
-//			{
-//				cnt++;
-//			}
-//		}
-//
-//		int cntList = 0;
-//		for (auto el : adjacencyList[i])
-//		{
-//			cntList++;
-//		}
-//
-//		if (cnt != cntList)
-//		{
-//			return false;
-//		}
-//	}
-//
-//	for (int i = 1; i <= verts; ++i) 
-//	{
-//		forward_list<int> temp = adjacencyList[i];
-//		for (auto& el : temp)
-//		{
-//			if (el > verts || el < 0)
-//			{
-//				return false;
-//			}
-//
-//			if (adjacencyMatrix[i][el] != 1)
-//			{
-//				return false;
-//			}
-//		}
-//	}
-//
-//	return true;
-//}
-//
-//vector<forward_list<int>> fromMatrixToList()
-//{
-//	int n = adjacencyM.size();
-//	vector<forward_list<int>>adjacencyL;
-//	adjacencyL.push_back(forward_list<int>());
-//
-//	for (int i = 1; i < n; ++i)
-//	{
-//		forward_list<int> v;
-//		for (int j = 1; j < n; ++j) 
-//		{
-//			if (adjacencyM[i][j] == 1)
-//			{
-//				v.push_front(j);
-//			}
-//		}
-//		v.reverse();
-//		adjacencyL.push_back(v);
-//	}
-//
-//	return adjacencyL;
-//}
-//
-//vector<vector<int>> fromListToMatrix(vector<forward_list<int>>& adjacencyL)
-//{
-//	int n = adjacencyL.size();
-//	vector<vector<int>> adjacencyMatrix(n, vector<int>(n));
-//
-//	for (int i = 1; i < n; ++i)
-//	{
-//		for (auto& el : adjacencyL[i])
-//		{
-//			adjacencyMatrix[i][el] = 1;
-//		}
-//	}
-//
-//	return adjacencyMatrix;
+//	CONSOLE_CURSOR_INFO structCursorInfo;
+//	GetConsoleCursorInfo(hStdOut, &structCursorInfo);
+//	structCursorInfo.bVisible = show;
+//	structCursorInfo.dwSize = size;
+//	SetConsoleCursorInfo(hStdOut, &structCursorInfo);
 //}
 //
 //int main()
 //{
 //	setlocale(LC_ALL, "ru");
+//	SetConsoleTitle(L"Графы");
+//	ConsoleCursorVisible(false, 100);
+//	SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN);
 //
-//	Read_g();
+//	GraphInteraction test;
+//
+//	int active_menu = 0;
+//	int keyInput;
+//	bool exitProg = false;
+//
+//	system("cls");
+//
+//	while (!exitProg)
+//	{
+//		int x = 40, y = 12;
+//		GoToXY(x, y);
+//
+//		vector<string> menu =
+//		{
+//			"Считать граф из файла",
+//			"Вывести граф на экран",
+//			"Преобразовать матрицу смежности в список связей",
+//			"Преобразовать список связей в матрицу смежности",
+//			"Построить каркас графа поиском в ширину",
+//			"Построить каркас графа поиском в глубину",
+//			"Выход"
+//		};
+//
+//		for (int i = 0; i < menu.size(); i++)
+//		{
+//			if (i == active_menu)
+//			{
+//				SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+//			}
+//			else
+//			{
+//				SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN);
+//			}
+//
+//			GoToXY(x, y++);
+//			cout << menu[i] << endl;
+//		}
+//
+//		keyInput = _getch();
+//		switch (keyInput)
+//		{
+//			case KEY_ESC:
+//				exit(0);
+//
+//			case KEY_UP:
+//			{
+//				if (active_menu > 0)
+//				{
+//					active_menu--;
+//				}
+//			}
+//			break;
+//
+//			case KEY_DOWN:
+//			{
+//				if (active_menu < menu.size() - 1)
+//				{
+//					active_menu++;
+//				}
+//			}
+//			break;
+//
+//			case KEY_ENTER:
+//			{
+//				switch (active_menu)
+//				{
+//					case 0:
+//					{
+//						system("cls");
+//						
+//						if (!test.getAdjM().empty() || !test.getAdjL().empty())
+//						{
+//							cout << "Данные уже считаны" << endl;
+//						}
+//						else
+//						{
+//							test.Read_g();
+//						}
+//
+//						test.printQuit();
+//					}
+//					break;
+//
+//					case 1:
+//					{
+//						system("cls");
+//
+//						if (!test.getAdjM().empty())
+//						{
+//							cout << "Данные хранятся в виде матрице смежности" << endl;
+//							test.Print_gAdjM();
+//						}
+//						else if (!test.getAdjL().empty())
+//						{
+//							cout << "Данные хранятся в виде списка связей" << endl;
+//							test.Print_gAdjL();
+//						}
+//						else
+//						{
+//							cout << "Данные отсутствуют";
+//						}
+//
+//						test.printQuit();
+//					}
+//					break;
+//
+//					case 2:
+//					{
+//						system("cls");
+//
+//						if (test.getAdjL().empty())
+//						{
+//							test.fromMatrixToList();
+//
+//							if (test.isConversionValid())
+//							{
+//								cout << "Преобразование успешно";
+//								test.clearMatrix();
+//							}
+//							else
+//							{
+//								cout << "Ошибка преобразования";
+//							}
+//						}
+//						else
+//						{
+//							cout << "В списке связей присутствуют данные";
+//						}
+//
+//						test.printQuit();
+//					}
+//					break;
+//
+//					case 3:
+//					{
+//						system("cls");
+//
+//						if (test.getAdjM().empty())
+//						{
+//							test.fromListToMatrix();
+//
+//							if (test.isConversionValid())
+//							{
+//								cout << "Преобразование успешно";
+//								test.clearList();
+//							}
+//							else
+//							{
+//								cout << "Ошибка преобразования";
+//							}
+//						}
+//						else
+//						{
+//							cout << "В матрице смежности присутствуют данные";
+//						}			
+//
+//						test.printQuit();
+//					}
+//					break;
+//
+//					case 4:
+//					{
+//						system("cls");
+//
+//						if (!test.getAdjM().empty())
+//						{
+//							vector<vector<int>> frame = test.getFrameBFSAdjM();
+//							cout << "Каркас(ы) графа: " << endl;
+//							for (int i = 0; i < frame.size(); i++)
+//							{
+//								cout << i + 1 << " каркас: ";
+//								for (auto& el : frame[i])
+//								{
+//									cout << el << " ";
+//								}
+//								cout << endl;
+//							}
+//						}
+//						else if (!test.getAdjL().empty())
+//						{
+//							vector<vector<int>> frame = test.getFrameBFSAdjL();
+//							cout << "Каркас(ы) графа: " << endl;
+//							for (int i = 0; i < frame.size(); i++)
+//							{
+//								cout << i + 1 << " каркас: ";
+//								for (auto& el : frame[i])
+//								{
+//									cout << el << " ";
+//								}
+//								cout << endl;
+//							}
+//						}
+//						else
+//						{
+//							cout << "Данные отсутствуют";
+//						}
+//				
+//						test.printQuit();
+//					}
+//					break;
+//
+//					case 5:
+//					{
+//						system("cls");
+//
+//						if (!test.getAdjM().empty())
+//						{
+//							vector<vector<int>> frame = test.getFrameDFSAdjM();
+//							cout << "Каркас(ы) графа: " << endl;
+//							for (int i = 0; i < frame.size(); i++)
+//							{
+//								cout << i + 1 << " каркас: ";
+//								for (auto& el : frame[i])
+//								{
+//									cout << el << " ";
+//								}
+//								cout << endl;
+//							}
+//						}
+//						else if (!test.getAdjL().empty())
+//						{
+//							vector<vector<int>> frame = test.getFrameDFSAdjL();
+//							cout << "Каркас(ы) графа: " << endl;
+//							for (int i = 0; i < frame.size(); i++)
+//							{
+//								cout << i + 1 << " каркас: ";
+//								for (auto& el : frame[i])
+//								{
+//									cout << el << " ";
+//								}
+//								cout << endl;
+//							}
+//						}
+//						else
+//						{
+//							cout << "Данные отсутствуют";
+//						}
+//
+//						test.printQuit();
+//					}
+//					break;
+//
+//					case 6:
+//					{
+//						system("cls");
+//						exitProg = true;
+//					}
+//					break;
+//				}
+//			}
+//			break;
+//
+//		}
+//	}
+//
+//	/*Read_g();
 //	if (adjacencyM.empty())
 //	{
 //		cout << "Данные отсутствуют";
@@ -209,5 +342,5 @@
 //		cout << endl;
 //	}
 //	cout << endl;
-//	system("pause");
+//	system("pause");*/
 //}
