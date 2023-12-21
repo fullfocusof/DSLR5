@@ -94,62 +94,38 @@
 //    printTree(node->right, indent - 5);
 //}
 //
-//void deleteNodesAtLevel(TreeNode*& root, int level) 
+//void del
+//
+//
+//void deleteNodesOnLevel(TreeNode* root, int level)
 //{
-//    if (root == nullptr || level < 1) return;
-//
-//    if (level == 1) 
+//    if (level == 0)
 //    {
-//        delete root;
-//        root = nullptr;
-//        return;
-//    }
-//
-//    queue<TreeNode*> nodeQueue;
-//    nodeQueue.push(root);
-//    int currentLevel = 1;
-//
-//    while (!nodeQueue.empty()) 
-//    {
-//        int nodesCountAtCurrentLevel = nodeQueue.size();
-//
-//        for (int i = 0; i < nodesCountAtCurrentLevel; i++) 
+//        if (root == nullptr) return;
+//        if (root->right == nullptr && root->left == nullptr) delete root;
+//        if (root->left == nullptr || root->right == nullptr)
 //        {
-//            TreeNode* currentNode = nodeQueue.front();
-//            nodeQueue.pop();
-//
-//            if (currentNode->left != nullptr) 
+//            if (root->left)
 //            {
-//                if (currentLevel + 1 == level) 
-//                {
-//                    delete currentNode->left;
-//                    currentNode->left = nullptr;
-//                }
-//                else 
-//                {
-//                    nodeQueue.push(currentNode->left);
-//                }
+//                root = root->left;
 //            }
-//
-//            if (currentNode->right != nullptr) 
+//            else
 //            {
-//                if (currentLevel + 1 == level) 
-//                {
-//                    delete currentNode->right;
-//                    currentNode->right = nullptr;
-//                }
-//                else 
-//                {
-//                    nodeQueue.push(currentNode->right);
-//                }
+//                root = root->right;
 //            }
 //        }
+//        if (root->left && root->right)
+//        {
 //
-//        currentLevel++;
-//
-//        if (currentLevel == level) break;
+//        }
 //    }
+//    
+//    deleteNodesOnLevel
+//    
 //}
+//
+//
+//
 //
 //int main()
 //{
@@ -170,7 +146,10 @@
 //        system("pause");
 //    }
 //
-//    deleteNodesAtLevel(root, depthToDel);
+//    deleteNodesOnLevel(root, depthToDel);
 //    cout << endl << endl;
 //    printTree(root, depth * 5);
+//
+//
+//    destroyTree(root);
 //}
